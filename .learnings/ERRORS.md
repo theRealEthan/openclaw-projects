@@ -52,3 +52,30 @@ Grant write permission for /var/log/openclaw or configure builder log fallback p
 - Related Files: /var/log/openclaw/builder.log
 
 ---
+## [ERR-20260315-001] root_nginx_edit_blocked
+
+**Logged**: 2026-03-15T11:49:00+02:00
+**Priority**: high
+**Status**: pending
+**Area**: infra
+
+### Summary
+Could not apply required nginx proxy fix because elevated/root execution is blocked for this session provider.
+
+### Error
+```
+elevated is not available right now (runtime=direct)
+Failing gates: allowFrom ... provider=webchat
+```
+
+### Context
+Mission Control static assets were returning 400 HTML responses due to reverse proxy behavior. Fix requires editing `/etc/nginx/sites-available/mission-control` and reloading nginx, which needs root privileges.
+
+### Suggested Fix
+Run the provided sudo commands in a shell, or enable elevated tool usage for webchat provider in OpenClaw config.
+
+### Metadata
+- Reproducible: yes
+- Related Files: /etc/nginx/sites-available/mission-control
+
+---
